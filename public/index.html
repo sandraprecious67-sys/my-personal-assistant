@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f6f4">
+    <title>Personal Assistant</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="Personal Assistant home">
+          <span class="brand-mark">✳</span>
+          <span>personal<span class="brand-light">.ai</span></span>
+        </a>
+        <button class="new-chat-button" id="new-chat">＋ <span>New conversation</span></button>
+        <div class="sidebar-label">YOUR SPACE</div>
+        <nav id="conversation-list" class="conversation-list" aria-label="Conversation history"></nav>
+        <div class="sidebar-bottom">
+          <div class="model-indicator"><span class="status-dot" id="model-dot"></span><span id="model-status">Checking model…</span></div>
+          <button class="settings-link" id="open-settings">⚙ <span>Customize assistant</span></button>
+          <div class="privacy-note">Your conversations and files stay on this device.</div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <div class="eyebrow">YOUR PRIVATE WORKSPACE</div>
+            <h1 id="page-title">A little space to think.</h1>
+          </div>
+          <button class="icon-button mobile-settings" id="mobile-settings" aria-label="Customize assistant">⚙</button>
+          <div class="topbar-actions"><span class="local-badge"><span></span> Local workspace</span></div>
+        </header>
+
+        <div class="setup-notice" id="setup-notice" hidden>
+          <div class="notice-icon">✳</div>
+          <div><strong>Your workspace is ready—no model setup needed.</strong><p>Chats, files, search, and customization work here. Connect a local or hosted AI model later when you want generated replies.</p></div>
+          <a href="#setup-help">About models</a>
+        </div>
+
+        <section class="conversation-view" id="conversation-view" aria-live="polite">
+          <div class="welcome" id="welcome">
+            <div class="welcome-sparkle">✳</div>
+            <p class="eyebrow">A FRESH PAGE</p>
+            <h2>What’s on your mind?</h2>
+            <p class="welcome-copy">Think out loud, make a plan, or ask about something you’ve saved.</p>
+            <div class="suggestions">
+              <button data-prompt="Help me turn everything on my mind into a clear plan."><span>↗</span> Help me make a plan</button>
+              <button data-prompt="What can you help me with?"><span>✳</span> Explore what you can do</button>
+            </div>
+          </div>
+          <div class="messages" id="messages"></div>
+        </section>
+
+        <section class="composer-area">
+          <div class="composer">
+            <textarea id="message-input" rows="1" placeholder="Message your assistant…" aria-label="Message your assistant"></textarea>
+            <div class="composer-footer">
+              <span class="composer-hint">↵ to send · Shift + ↵ for a new line</span>
+              <button class="send-button" id="send-message" aria-label="Send message">↑</button>
+            </div>
+          </div>
+          <p class="composer-caption">A private space, built around you.</p>
+        </section>
+      </main>
+
+      <aside class="library-panel">
+        <div class="panel-heading"><div><p class="eyebrow">YOUR KNOWLEDGE</p><h2>Library</h2></div><span class="library-count" id="file-count">0</span></div>
+        <p class="panel-description">Add notes and documents so your assistant can find them when you ask.</p>
+        <label class="upload-zone" for="file-picker">
+          <span class="upload-icon">↑</span><strong>Choose files</strong><span>TXT, MD, CSV, JSON · up to 1 MB</span>
+          <input type="file" id="file-picker" accept=".txt,.md,.csv,.json,text/plain,text/markdown,text/csv,application/json" multiple>
+        </label>
+        <div class="file-list" id="file-list"></div>
+        <div class="library-divider"></div>
+        <label class="search-label" for="file-search">Search your files</label>
+        <div class="search-box"><span>⌕</span><input id="file-search" type="search" placeholder="Try a name or topic…"></div>
+        <div class="search-results" id="search-results"></div>
+        <div class="panel-footnote"><span>✳</span> Files are used only when relevant to your request.</div>
+      </aside>
+    </div>
+
+    <dialog id="settings-dialog" class="settings-dialog">
+      <form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form>
+      <p class="eyebrow">MAKE IT YOURS</p>
+      <h2>Assistant instructions</h2>
+      <p class="settings-copy">Shape how your assistant thinks, writes, and helps. You can change this anytime.</p>
+      <label class="field-label" for="instructions">YOUR GUIDANCE</label>
+      <textarea id="instructions" rows="7" placeholder="What should your assistant know about how you like to work?"></textarea>
+      <div class="settings-actions"><span id="settings-status">Saved on this device</span><button class="primary-button" id="save-settings">Save instructions</button></div>
+      <div class="setup-help" id="setup-help"><strong>Connect a model whenever you’re ready</strong><span>A hosted provider usually needs a key in the server environment (<code>OPENAI_API_KEY</code>). A compatible local model can run without a hosted key; set <code>OPENAI_BASE_URL</code> and <code>OPENAI_MODEL</code>. Neither is required to use this workspace.</span></div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
